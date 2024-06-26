@@ -13,7 +13,9 @@ import java.util.Map;
  * @author Hamm.cn
  */
 public class WeComMessage {
-    private static final String URL = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=";
+    public static final String URL = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=";
+    public static final int SUCCESS_CODE = 0;
+    public static final String CODE_KEY = "errcode";
 
     @JsonProperty("msgtype")
     private String msgType;
@@ -33,8 +35,8 @@ public class WeComMessage {
             String response = HttpUtil.post(URL + robotKey, request);
             System.out.println(response);
             Map map = JsonUtil.parse(response, Map.class);
-            int errorCode = (int) map.get("errcode");
-            if (errorCode != 0) {
+            int errorCode = (int) map.get(CODE_KEY);
+            if (errorCode != SUCCESS_CODE) {
                 throw new WeComException(response);
             }
         } catch (Exception exception) {
