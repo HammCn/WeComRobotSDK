@@ -1,7 +1,7 @@
 package cn.hamm.wecom.robot.util;
 
-import cn.hamm.wecom.robot.enums.ErrorCode;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -37,7 +37,7 @@ public class HttpUtil {
             entity.setContentType(APPLICATION_JSON);
             httpPost.setEntity(entity);
             try (CloseableHttpResponse httpResponse = httpClient.execute(httpPost)) {
-                if (httpResponse.getStatusLine().getStatusCode() == ErrorCode.SUCCESS.getCode()) {
+                if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
                     HttpEntity response = httpResponse.getEntity();
                     if (Objects.nonNull(response)) {
                         return EntityUtils.toString(response);
