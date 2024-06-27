@@ -36,7 +36,7 @@ public class Test {
         weComFileMessage.send(ROBOT_KEY);
     }
 
-    private static void testNews() throws WeComException, IOException, NoSuchAlgorithmException {
+    private static void testNews() throws WeComException {
         WeComNewsMessage weComNewsMessage = new WeComNewsMessage();
         weComNewsMessage.getNews().addArticle(
                 new WeComNewsMessage.News.Article()
@@ -54,7 +54,7 @@ public class Test {
         weComNewsMessage.send(ROBOT_KEY);
     }
 
-    private static void testImage() throws WeComException, IOException, NoSuchAlgorithmException {
+    private static void testImage() throws WeComException {
         WeComImageMessage weComImageMessage = new WeComImageMessage();
         String file = "src/test/resources/image.png";
         // 读取资源文件夹下的图片
@@ -77,7 +77,7 @@ public class Test {
 
     private static void testTemplateCard() throws WeComException {
         WeComTemplateCardMessage weComTemplateCardMessage = new WeComTemplateCardMessage();
-        TemplateCard templateCard = new TemplateCard();
+        TemplateCard templateCard = new TemplateCard().setCardTypeText();
         templateCard.getMainTitle().setTitle("TemplateCard").setDesc("desc");
         templateCard.getSource()
                 .setDesc("desc")
