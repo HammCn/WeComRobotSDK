@@ -1,8 +1,4 @@
-<h1>
-    <p align="center">
-    WeCom Robot SDK
-    </p>
-</h1>
+<h1 align="center">WeCom Robot SDK</h1>
 <p align="center">
     <img src="https://img.shields.io/badge/License-MIT-orange.svg"/>
     <img src="https://img.shields.io/badge/JDK-1.8+-green.svg"/>
