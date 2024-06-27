@@ -12,7 +12,7 @@ public class WeComMarkdownMessage extends WeComMessage {
         this.setMsgType("markdown");
     }
 
-    private MarkDown markdown;
+    private MarkDown markdown = new MarkDown();
 
     public MarkDown getMarkdown() {
         return markdown;

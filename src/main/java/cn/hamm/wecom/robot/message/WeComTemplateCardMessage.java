@@ -18,7 +18,7 @@ public class WeComTemplateCardMessage extends WeComMessage {
     }
 
     @JsonProperty("template_card")
-    private TemplateCard templateCard;
+    private TemplateCard templateCard = new TemplateCard();
 
     public TemplateCard getTemplateCard() {
         return templateCard;
@@ -43,12 +43,18 @@ public class WeComTemplateCardMessage extends WeComMessage {
         }
 
         /**
-         * <h2>模版卡片的模版类型</h2>
-         *
-         * @param cardType 文本通知模版卡片的类型为<code>text_notice</code>
+         * <h2>文本通知卡片</h2>
          */
-        public TemplateCard setCardType(String cardType) {
-            this.cardType = cardType;
+        public TemplateCard setCardTypeText() {
+            this.cardType = "text_notice";
+            return this;
+        }
+
+        /**
+         * <h2>文本通知卡片</h2>
+         */
+        public TemplateCard setCardTypeImage() {
+            this.cardType = "news_notice";
             return this;
         }
 
@@ -164,7 +170,6 @@ public class WeComTemplateCardMessage extends WeComMessage {
             return this;
         }
 
-
         /**
          * <h2>跳转指引样式的列表</h2>
          *
@@ -218,6 +223,215 @@ public class WeComTemplateCardMessage extends WeComMessage {
         public TemplateCard setCardAction(CardAction cardAction) {
             this.cardAction = cardAction;
             return this;
+        }
+
+        @JsonProperty("card_image")
+        private CardImage cardImage = new CardImage();
+
+        public CardImage getCardImage() {
+            return cardImage;
+        }
+
+        /**
+         * <h2>图片样式</h2>
+         *
+         * @param cardImage 图片样式
+         */
+        public TemplateCard setCardImage(CardImage cardImage) {
+            this.cardImage = cardImage;
+            return this;
+        }
+
+        @JsonProperty("image_text_area")
+        private ImageTextArea imageTextArea = new ImageTextArea();
+
+        public ImageTextArea getImageTextArea() {
+            return imageTextArea;
+        }
+
+        /**
+         * <h2>左图右文样式</h2>
+         *
+         * @param imageTextArea 左图右文样式
+         */
+        public TemplateCard setImageTextArea(ImageTextArea imageTextArea) {
+            this.imageTextArea = imageTextArea;
+            return this;
+        }
+
+        public static class ImageTextArea {
+            private String url;
+
+            public String getUrl() {
+                return url;
+            }
+
+            /**
+             * <h2>点击跳转的url</h2>
+             *
+             * @param url 点击跳转的url
+             * @apiNote image_text_area.type是 {@link Type#URL} 时必填
+             */
+            public ImageTextArea setUrl(String url) {
+                this.url = url;
+                return this;
+            }
+
+            private String appid;
+
+            public String getAppid() {
+                return appid;
+            }
+
+            /**
+             * <h2>点击跳转的小程序的appid</h2>
+             *
+             * @param appid 点击跳转的小程序的appid
+             * @apiNote 必须是与当前应用关联的小程序，image_text_area.type是 {@link Type#MINI_PROGRAM} 时必填
+             */
+            public void setAppid(String appid) {
+                this.appid = appid;
+            }
+
+            @JsonProperty("pagepath")
+            private String pagePath;
+
+            public String getPagePath() {
+                return pagePath;
+            }
+
+            /**
+             * <h2>点击跳转的小程序的pagepath</h2>
+             *
+             * @param pagePath 点击跳转的小程序的pagepath
+             * @apiNote image_text_area.type是 {@link Type#MINI_PROGRAM} 时选填
+             */
+            public ImageTextArea setPagePath(String pagePath) {
+                this.pagePath = pagePath;
+                return this;
+            }
+
+            private String title;
+
+            public String getTitle() {
+                return title;
+            }
+
+            /**
+             * <h2>左图右文样式的标题</h2>
+             *
+             * @param title 左图右文样式的标题
+             */
+            public ImageTextArea setTitle(String title) {
+                this.title = title;
+                return this;
+            }
+
+            private String desc;
+
+            public String getDesc() {
+                return desc;
+            }
+
+            public void setDesc(String desc) {
+                this.desc = desc;
+            }
+
+            @JsonProperty("image_url")
+            private String imageUrl;
+
+            public String getImageUrl() {
+                return imageUrl;
+            }
+
+            /**
+             * <h2>左图右文样式的图片url</h2>
+             *
+             * @param imageUrl 左图右文样式的图片url
+             */
+            public ImageTextArea setImageUrl(String imageUrl) {
+                this.imageUrl = imageUrl;
+                return this;
+            }
+
+            private Integer type = Type.NONE.getValue();
+
+            public Integer getType() {
+                return type;
+            }
+
+            /**
+             * <h2>左图右文样式区域点击事件</h2>
+             *
+             * @param type 左图右文样式区域点击事件
+             * @see Type
+             */
+            public ImageTextArea setType(Type type) {
+                this.type = type.getValue();
+                return this;
+            }
+
+            public enum Type {
+                /**
+                 * <h2>无跳转</h2>
+                 */
+                NONE(0),
+
+                /**
+                 * <h2>跳转url</h2>
+                 */
+                URL(1),
+
+                /**
+                 * <h2>跳转小程序</h2>
+                 */
+                MINI_PROGRAM(2);
+
+                private final int value;
+
+                Type(int value) {
+                    this.value = value;
+                }
+
+                public int getValue() {
+                    return value;
+                }
+            }
+        }
+
+        public static class CardImage {
+            private String url;
+
+            public String getUrl() {
+                return url;
+            }
+
+            /**
+             * <h2>图片的url</h2>
+             *
+             * @param url 图片的url
+             */
+            public CardImage setUrl(String url) {
+                this.url = url;
+                return this;
+            }
+
+            @JsonProperty("aspect_ratio")
+            private Double aspectRatio = 1.3;
+
+            public Double getAspectRatio() {
+                return aspectRatio;
+            }
+
+            /**
+             * <h2>图片的宽高比</h2>
+             *
+             * @param aspectRatio 宽高比要小于<code>2.25</code>，大于<code>1.3</code>，不填该参数默认<code>1.3</code>
+             */
+            public CardImage setAspectRatio(Double aspectRatio) {
+                this.aspectRatio = aspectRatio;
+                return this;
+            }
         }
 
         public static class CardAction {
@@ -284,7 +498,6 @@ public class WeComTemplateCardMessage extends WeComMessage {
             public String getPagePath() {
                 return pagePath;
             }
-
 
             /**
              * <h2>跳转事件的小程序的pagePath</h2>

@@ -12,11 +12,7 @@ import java.util.Map;
  *
  * @author Hamm.cn
  */
-public class WeComMessage {
-    public static final String URL = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=";
-    public static final int SUCCESS_CODE = 0;
-    public static final String CODE_KEY = "errcode";
-
+public class WeComMessage extends WeCom {
     @JsonProperty("msgtype")
     private String msgType;
 
@@ -28,11 +24,17 @@ public class WeComMessage {
         this.msgType = msgType;
     }
 
+    /**
+     * <h2>发送机器人消息</h2>
+     *
+     * @param robotKey 机器人Key
+     * @throws WeComException 异常
+     */
     public final void send(String robotKey) throws WeComException {
         try {
             String request = JsonUtil.toString(this);
             System.out.println(request);
-            String response = HttpUtil.post(URL + robotKey, request);
+            String response = HttpUtil.post(WEB_HOOK_URL + robotKey, request);
             System.out.println(response);
             Map map = JsonUtil.parse(response, Map.class);
             int errorCode = (int) map.get(CODE_KEY);
