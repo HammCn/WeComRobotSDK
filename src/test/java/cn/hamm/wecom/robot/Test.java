@@ -17,7 +17,7 @@ public class Test {
     public static final String HAMM_CN = "https://hamm.cn";
     public static final String IMAGE_URL = "https://avatars.githubusercontent.com/u/10349107?v=4";
 
-    public static void main(String... args) throws WeComException, IOException, NoSuchAlgorithmException {
+    public static void main(String... args) throws WeComException, IOException {
         String file = "src/test/resources/voice.amr";
         String mediaId = WeComFile.uploadVoice(ROBOT_KEY, file);
         System.out.println(mediaId);

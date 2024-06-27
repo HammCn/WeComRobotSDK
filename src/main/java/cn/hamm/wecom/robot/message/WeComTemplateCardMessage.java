@@ -58,6 +58,15 @@ public class WeComTemplateCardMessage extends WeComMessage {
             return this;
         }
 
+        /**
+         * <h2>卡片类型</h2>
+         *
+         * @param cardType 卡片类型
+         */
+        public void setCardType(String cardType) {
+            this.cardType = cardType;
+        }
+
         private Source source = new Source();
 
         public Source getSource() {
@@ -93,6 +102,16 @@ public class WeComTemplateCardMessage extends WeComMessage {
 
         @JsonProperty("main_title")
         private MainTitle mainTitle = new MainTitle();
+
+        /**
+         * <h2>模版卡片的主要内容</h2>
+         *
+         * @param mainTitle 模版卡片的主要内容
+         */
+        public TemplateCard setMainTitle(MainTitle mainTitle) {
+            this.mainTitle = mainTitle;
+            return this;
+        }
 
         /**
          * <h2>模版卡片的主要内容</h2>

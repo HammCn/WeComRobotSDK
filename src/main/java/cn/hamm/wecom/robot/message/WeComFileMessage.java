@@ -2,13 +2,7 @@ package cn.hamm.wecom.robot.message;
 
 import cn.hamm.wecom.robot.WeComFile;
 import cn.hamm.wecom.robot.WeComMessage;
-import cn.hamm.wecom.robot.util.ImageUtil;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Base64;
 
 /**
  * <h1>文件</h1>
