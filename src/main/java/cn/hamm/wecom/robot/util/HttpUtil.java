@@ -11,6 +11,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
@@ -29,7 +30,7 @@ public class HttpUtil {
     public static String post(String url, String json) {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             HttpPost httpPost = new HttpPost(url);
-            StringEntity entity = new StringEntity(json);
+            StringEntity entity = new StringEntity(json, StandardCharsets.UTF_8);
             entity.setContentType(ContentType.APPLICATION_JSON.getMimeType());
             httpPost.setEntity(entity);
             try (CloseableHttpResponse httpResponse = httpClient.execute(httpPost)) {
