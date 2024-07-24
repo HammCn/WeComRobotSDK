@@ -2,6 +2,7 @@ package cn.hamm.wecom.robot.message;
 
 import cn.hamm.wecom.robot.WeComFile;
 import cn.hamm.wecom.robot.WeComMessage;
+import cn.hamm.wecom.robot.enums.MsgTypeEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -11,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class WeComFileMessage extends WeComMessage {
     public WeComFileMessage() {
-        this.setMsgType("file");
+       this.setMsgTypeEnum(MsgTypeEnum.FILE);
     }
 
     private File file = new File();

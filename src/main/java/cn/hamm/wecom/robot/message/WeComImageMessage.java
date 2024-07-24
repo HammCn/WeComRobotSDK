@@ -1,6 +1,7 @@
 package cn.hamm.wecom.robot.message;
 
 import cn.hamm.wecom.robot.WeComMessage;
+import cn.hamm.wecom.robot.enums.MsgTypeEnum;
 import cn.hamm.wecom.robot.util.ImageUtil;
 
 import java.io.InputStream;
@@ -15,7 +16,7 @@ import java.util.Base64;
  */
 public class WeComImageMessage extends WeComMessage {
     public WeComImageMessage() {
-        this.setMsgType("image");
+        this.setMsgTypeEnum(MsgTypeEnum.IMAGE);
     }
 
     private Image image = new Image();

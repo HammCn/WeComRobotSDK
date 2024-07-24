@@ -1,6 +1,7 @@
 package cn.hamm.wecom.robot.message;
 
 import cn.hamm.wecom.robot.WeComMessage;
+import cn.hamm.wecom.robot.enums.MsgTypeEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.Objects;
  */
 public class WeComNewsMessage extends WeComMessage {
     public WeComNewsMessage() {
-        this.setMsgType("news");
+        this.setMsgTypeEnum(MsgTypeEnum.NEWS);
     }
 
     private News news = new News();

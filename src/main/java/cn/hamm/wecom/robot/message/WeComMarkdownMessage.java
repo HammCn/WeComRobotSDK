@@ -1,6 +1,7 @@
 package cn.hamm.wecom.robot.message;
 
 import cn.hamm.wecom.robot.WeComMessage;
+import cn.hamm.wecom.robot.enums.MsgTypeEnum;
 
 /**
  * <h1>MarkDown</h1>
@@ -9,7 +10,7 @@ import cn.hamm.wecom.robot.WeComMessage;
  */
 public class WeComMarkdownMessage extends WeComMessage {
     public WeComMarkdownMessage() {
-        this.setMsgType("markdown");
+        this.setMsgTypeEnum(MsgTypeEnum.MARKDOWN);
     }
 
     private MarkDown markdown = new MarkDown();
