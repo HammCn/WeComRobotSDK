@@ -41,7 +41,7 @@ public class WeComTextMessage extends WeComMessage {
          * <h2>文本内容</h2>
          *
          * @param content 文本内容
-         * @apiNote 最长不超过2048个字节，必须是utf8编码
+         * @apiNote 最长不超过2048个字节，必须是 {@code utf8} 编码
          */
         public Text setContent(String content) {
             this.content = content;
@@ -61,7 +61,7 @@ public class WeComTextMessage extends WeComMessage {
          * <h2>提醒成员userid列表</h2>
          *
          * @param mentionedList userid的列表
-         * @apiNote 提醒群中的指定成员(@ 某个成员)，@all表示提醒所有人，如果开发者获取不到userid，可以使用 {@code mentioned_mobile_list}
+         * @apiNote 提醒群中的指定成员(@ 某个成员)，{@code @all} 表示提醒所有人，如果开发者获取不到 {@code userid}，可以使用 {@code mentioned_mobile_list}
          */
         public Text setMentionedList(List<String> mentionedList) {
             this.mentionedList = mentionedList;
@@ -72,7 +72,7 @@ public class WeComTextMessage extends WeComMessage {
          * <h2>添加提醒成员</h2>
          *
          * @param mentioned 提醒成员
-         * @apiNote 提醒群中的指定成员(@ 某个成员)，@all表示提醒所有人，如果开发者获取不到userid，可以使用 {@code mentioned_mobile_list}
+         * @apiNote 提醒群中的指定成员(@ 某个成员)，{@code @all} 表示提醒所有人，如果开发者获取不到 {@code userid}，可以使用 {@code mentioned_mobile_list}
          */
         public Text addMentioned(String mentioned) {
             if (Objects.isNull(mentionedList)) {
