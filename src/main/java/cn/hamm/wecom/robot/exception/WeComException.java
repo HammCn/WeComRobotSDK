@@ -1,7 +1,7 @@
 package cn.hamm.wecom.robot.exception;
 
 /**
- * <h1>WeComException</h1>
+ * <h1>企业微信机器人异常</h1>
  *
  * @author Hamm.cn
  */

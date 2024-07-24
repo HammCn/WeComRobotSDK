@@ -1,7 +1,8 @@
 package cn.hamm.wecom.robot.message;
 
-import cn.hamm.wecom.robot.WeComFile;
-import cn.hamm.wecom.robot.WeComMessage;
+import cn.hamm.wecom.robot.base.WeComFile;
+import cn.hamm.wecom.robot.base.WeComMessage;
+import cn.hamm.wecom.robot.constant.WeComAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -10,8 +11,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Hamm.cn
  */
 public class WeComVoiceMessage extends WeComMessage {
+
     public WeComVoiceMessage() {
-        this.setMsgType("voice");
+        this.setMsgType(WeComAlias.VOICE);
     }
 
     private Voice voice = new Voice();
@@ -26,7 +28,7 @@ public class WeComVoiceMessage extends WeComMessage {
     }
 
     public static class Voice {
-        @JsonProperty("media_id")
+        @JsonProperty(WeComAlias.MEDIA_ID)
         private String mediaId;
 
         public String getMediaId() {

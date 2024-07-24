@@ -1,5 +1,7 @@
-package cn.hamm.wecom.robot;
+package cn.hamm.wecom.robot.base;
 
+import cn.hamm.wecom.robot.constant.WeComAlias;
+import cn.hamm.wecom.robot.constant.WeComConstant;
 import cn.hamm.wecom.robot.exception.WeComException;
 import cn.hamm.wecom.robot.util.JsonUtil;
 import org.apache.http.HttpEntity;
@@ -11,7 +13,9 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 /**
@@ -19,44 +23,45 @@ import java.util.Map;
  *
  * @author Hamm.cn
  */
-public class WeComFile extends WeCom {
+public class WeComFile {
+
     /**
      * <h2>上传语音</h2>
      *
-     * @param key  机器人Key
+     * @param key  机器人 {@code Key}
      * @param path 文件路径
-     * @return 文件ID
+     * @return 文件 {@code ID}
      */
     public static String uploadVoice(String key, String path) throws WeComException, IOException {
-        return upload(key, "voice", path);
+        return upload(key, WeComAlias.VOICE, path);
     }
 
     /**
      * <h2>上传语音</h2>
      *
-     * @param key  机器人Key
+     * @param key  机器人 {@code Key}
      * @param path 文件路径
-     * @return 文件ID
+     * @return 文件 {@code ID}
      */
     public static String uploadFile(String key, String path) throws WeComException, IOException {
-        return upload(key, "file", path);
+        return upload(key, WeComAlias.FILE, path);
     }
 
     /**
      * <h2>上传文件</h2>
      *
-     * @param key  机器人Key
+     * @param key  机器人 {@code Key}
      * @param type 类型
      * @param path 文件路径
-     * @return 文件ID
+     * @return 文件 {@code ID}
      */
     private static String upload(String key, String type, String path) throws IOException, WeComException {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-            HttpPost httpPost = new HttpPost(String.format(UPLOAD_FILE_URL, type, key));
+            HttpPost httpPost = new HttpPost(String.format(WeComConstant.UPLOAD_FILE_URL, type, key));
 
             File file = new File(path);
             HttpEntity multipartEntity = MultipartEntityBuilder.create()
-                    .addPart("media", new FileBody(file))
+                    .addPart(WeComAlias.MEDIA, new FileBody(file))
                     .build();
 
             httpPost.setEntity(multipartEntity);
@@ -64,19 +69,18 @@ public class WeComFile extends WeCom {
             try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
                 HttpEntity httpEntity = response.getEntity();
                 if (httpEntity != null) {
-                    String body = EntityUtils.toString(httpEntity);
-                    System.out.println(body);
-                    Map map = JsonUtil.parse(body, Map.class);
-                    int errorCode = (int) map.get(WeCom.CODE_KEY);
-                    if (errorCode != WeCom.SUCCESS_CODE) {
+                    String body = EntityUtils.toString(httpEntity, StandardCharsets.UTF_8);
+                    Map<?, ?> map = JsonUtil.parse(body, Map.class);
+                    int errorCode = (int) map.get(WeComAlias.ERROR_CODE);
+                    if (errorCode != WeComConstant.SUCCESS_CODE) {
                         throw new WeComException(body);
                     }
-                    return map.get("media_id").toString();
+                    return map.get(WeComAlias.MEDIA_ID).toString();
                 }
             } finally {
                 httpClient.close();
             }
         }
-        throw new WeComException("上传失败");
+        throw new WeComException("上传文件失败");
     }
 }

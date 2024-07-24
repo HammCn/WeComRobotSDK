@@ -1,6 +1,7 @@
 package cn.hamm.wecom.robot.message;
 
-import cn.hamm.wecom.robot.WeComMessage;
+import cn.hamm.wecom.robot.base.WeComMessage;
+import cn.hamm.wecom.robot.constant.WeComAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
@@ -13,12 +14,13 @@ import java.util.Objects;
  * @author Hamm.cn
  */
 public class WeComTemplateCardMessage extends WeComMessage {
-    public WeComTemplateCardMessage() {
-        this.setMsgType("template_card");
-    }
 
-    @JsonProperty("template_card")
+    @JsonProperty(WeComAlias.TEMPLATE_CARD)
     private TemplateCard templateCard = new TemplateCard();
+
+    public WeComTemplateCardMessage() {
+        this.setMsgType(WeComAlias.TEMPLATE_CARD);
+    }
 
     public TemplateCard getTemplateCard() {
         return templateCard;
@@ -35,28 +37,16 @@ public class WeComTemplateCardMessage extends WeComMessage {
     }
 
     public static class TemplateCard {
-        @JsonProperty("card_type")
-        private String cardType = "text_notice";
+        @JsonProperty(WeComAlias.CARD_TYPE)
+        private String cardType = WeComAlias.TEXT_NOTICE;
 
         public String getCardType() {
             return cardType;
         }
-
-        /**
-         * <h2>文本通知卡片</h2>
-         */
-        public TemplateCard setCardTypeText() {
-            this.cardType = "text_notice";
-            return this;
-        }
-
-        /**
-         * <h2>文本通知卡片</h2>
-         */
-        public TemplateCard setCardTypeImage() {
-            this.cardType = "news_notice";
-            return this;
-        }
+        @JsonProperty(WeComAlias.SUB_TITLE_TEXT)
+        private String subTitleText;
+        @JsonProperty(WeComAlias.MAIN_TITLE)
+        private MainTitle mainTitle = new MainTitle();
 
         /**
          * <h2>卡片类型</h2>
@@ -82,26 +72,16 @@ public class WeComTemplateCardMessage extends WeComMessage {
             this.source = source;
             return this;
         }
-
-        @JsonProperty("sub_title_text")
-        private String subTitleText;
+        @JsonProperty(WeComAlias.EMPHASIS_CONTENT)
+        private EmphasisContent emphasisContent = new EmphasisContent();
 
         public String getSubTitleText() {
             return subTitleText;
         }
-
-        /**
-         * <h2>二级普通文本</h2>
-         *
-         * @param subTitleText 二级普通文本
-         * @apiNote 建议不超过112个字，模版卡片主要内容的一级标题 <code>main_title.title</code> 和二级普通文本 <code>sub_title_text</code> 必须有一项填写
-         */
-        public void setSubTitleText(String subTitleText) {
-            this.subTitleText = subTitleText;
-        }
-
-        @JsonProperty("main_title")
-        private MainTitle mainTitle = new MainTitle();
+        @JsonProperty(WeComAlias.QUOTE_AREA)
+        private QuoteArea quoteArea;
+        @JsonProperty(WeComAlias.HORIZONTAL_CONTENT_LIST)
+        private List<HorizontalContent> horizontalContentList = new ArrayList<>();
 
         /**
          * <h2>模版卡片的主要内容</h2>
@@ -121,9 +101,13 @@ public class WeComTemplateCardMessage extends WeComMessage {
         public MainTitle getMainTitle() {
             return mainTitle;
         }
-
-        @JsonProperty("emphasis_content")
-        private EmphasisContent emphasisContent = new EmphasisContent();
+        /**
+         * <h2>跳转指引样式的列表</h2>
+         *
+         * @apiNote 该字段可为空数组，但有数据的话需确认对应字段是否必填，列表长度不超过3
+         */
+        @JsonProperty(WeComAlias.JUMP_LIST)
+        private List<Jump> jumpList = new ArrayList<>();
 
         public EmphasisContent getEmphasisContent() {
             return emphasisContent;
@@ -138,9 +122,8 @@ public class WeComTemplateCardMessage extends WeComMessage {
             this.emphasisContent = emphasisContent;
             return this;
         }
-
-        @JsonProperty("quote_area")
-        private QuoteArea quoteArea;
+        @JsonProperty(WeComAlias.CARD_ACTION)
+        private CardAction cardAction = new CardAction();
 
         public QuoteArea getQuoteArea() {
             return quoteArea;
@@ -156,9 +139,8 @@ public class WeComTemplateCardMessage extends WeComMessage {
             this.quoteArea = quoteArea;
             return this;
         }
-
-        @JsonProperty("horizontal_content_list")
-        private List<HorizontalContent> horizontalContentList = new ArrayList<>();
+        @JsonProperty(WeComAlias.CARD_IMAGE)
+        private CardImage cardImage = new CardImage();
 
         public List<HorizontalContent> getHorizontalContentList() {
             return horizontalContentList;
@@ -188,14 +170,8 @@ public class WeComTemplateCardMessage extends WeComMessage {
             horizontalContentList.add(horizontalContent);
             return this;
         }
-
-        /**
-         * <h2>跳转指引样式的列表</h2>
-         *
-         * @apiNote 该字段可为空数组，但有数据的话需确认对应字段是否必填，列表长度不超过3
-         */
-        @JsonProperty("jump_list")
-        private List<Jump> jumpList = new ArrayList<>();
+        @JsonProperty(WeComAlias.IMAGE_TEXT_AREA)
+        private ImageTextArea imageTextArea = new ImageTextArea();
 
         public List<Jump> getJumpList() {
             return jumpList;
@@ -226,8 +202,13 @@ public class WeComTemplateCardMessage extends WeComMessage {
             return this;
         }
 
-        @JsonProperty("card_action")
-        private CardAction cardAction = new CardAction();
+        /**
+         * <h2>文本通知卡片</h2>
+         */
+        public TemplateCard setCardTypeText() {
+            this.cardType = WeComAlias.TEXT_NOTICE;
+            return this;
+        }
 
         public CardAction getCardAction() {
             return cardAction;
@@ -244,8 +225,13 @@ public class WeComTemplateCardMessage extends WeComMessage {
             return this;
         }
 
-        @JsonProperty("card_image")
-        private CardImage cardImage = new CardImage();
+        /**
+         * <h2>文本通知卡片</h2>
+         */
+        public TemplateCard setCardTypeImage() {
+            this.cardType = WeComAlias.NEWS_NOTICE;
+            return this;
+        }
 
         public CardImage getCardImage() {
             return cardImage;
@@ -261,8 +247,15 @@ public class WeComTemplateCardMessage extends WeComMessage {
             return this;
         }
 
-        @JsonProperty("image_text_area")
-        private ImageTextArea imageTextArea = new ImageTextArea();
+        /**
+         * <h2>二级普通文本</h2>
+         *
+         * @param subTitleText 二级普通文本
+         * @apiNote 建议不超过112个字，模版卡片主要内容的一级标题 {@code main_title.title} 和二级普通文本 {@code sub_title_text} 必须有一项填写
+         */
+        public void setSubTitleText(String subTitleText) {
+            this.subTitleText = subTitleText;
+        }
 
         public ImageTextArea getImageTextArea() {
             return imageTextArea;
@@ -312,7 +305,7 @@ public class WeComTemplateCardMessage extends WeComMessage {
                 this.appid = appid;
             }
 
-            @JsonProperty("pagepath")
+            @JsonProperty(WeComAlias.PAGE_PATH)
             private String pagePath;
 
             public String getPagePath() {
@@ -356,7 +349,7 @@ public class WeComTemplateCardMessage extends WeComMessage {
                 this.desc = desc;
             }
 
-            @JsonProperty("image_url")
+            @JsonProperty(WeComAlias.IMAGE_URL)
             private String imageUrl;
 
             public String getImageUrl() {
@@ -435,7 +428,7 @@ public class WeComTemplateCardMessage extends WeComMessage {
                 return this;
             }
 
-            @JsonProperty("aspect_ratio")
+            @JsonProperty(WeComAlias.ASPECT_RATIO)
             private Double aspectRatio = 1.3;
 
             public Double getAspectRatio() {
@@ -445,7 +438,7 @@ public class WeComTemplateCardMessage extends WeComMessage {
             /**
              * <h2>图片的宽高比</h2>
              *
-             * @param aspectRatio 宽高比要小于<code>2.25</code>，大于<code>1.3</code>，不填该参数默认<code>1.3</code>
+             * @param aspectRatio 宽高比要小于{@code 2.25}，大于{@code 1.3}，不填该参数默认{@code 1.3}
              */
             public CardImage setAspectRatio(Double aspectRatio) {
                 this.aspectRatio = aspectRatio;
@@ -461,16 +454,12 @@ public class WeComTemplateCardMessage extends WeComMessage {
             }
 
             /**
-             * <h2>卡片跳转类型</h2>
+             * <h2>跳转事件的小程序的pagepath</h2>
              *
-             * @param type 卡片跳转类型
-             * @apiNote <code>text_notice</code> 模版卡片中该字段取值范围为 <code>[1, 2]</code>
-             * @see Type
+             * @apiNote {@code card_action.type} 是 {@link Type#MINI_PROGRAM} 时选填
              */
-            public CardAction setType(Type type) {
-                this.type = type.getValue();
-                return this;
-            }
+            @JsonProperty(WeComAlias.PAGE_PATH)
+            private String pagePath;
 
             private String url;
 
@@ -479,13 +468,14 @@ public class WeComTemplateCardMessage extends WeComMessage {
             }
 
             /**
-             * <h2>跳转事件的url</h2>
+             * <h2>卡片跳转类型</h2>
              *
-             * @param url 跳转事件的url
-             * @apiNote <code>card_action.type</code> 是 {@link Type#URL} 时必填
+             * @param type 卡片跳转类型
+             * @apiNote {@code text_notice} 模版卡片中该字段取值范围为 {@code [1, 2]}
+             * @see Type
              */
-            public CardAction setUrl(String url) {
-                this.url = url;
+            public CardAction setType(Type type) {
+                this.type = type.getValue();
                 return this;
             }
 
@@ -496,23 +486,26 @@ public class WeComTemplateCardMessage extends WeComMessage {
             }
 
             /**
+             * <h2>跳转事件的url</h2>
+             *
+             * @param url 跳转事件的url
+             * @apiNote {@code card_action.type} 是 {@link Type#URL} 时必填
+             */
+            public CardAction setUrl(String url) {
+                this.url = url;
+                return this;
+            }
+
+            /**
              * <h2>跳转事件的小程序的appid</h2>
              *
              * @param appid AppId
-             * @apiNote <code>card_action.type</code> 是 {@link Type#MINI_PROGRAM} 时必填
+             * @apiNote {@code card_action.type} 是 {@link Type#MINI_PROGRAM} 时必填
              */
             public CardAction setAppid(String appid) {
                 this.appid = appid;
                 return this;
             }
-
-            /**
-             * <h2>跳转事件的小程序的pagepath</h2>
-             *
-             * @apiNote <code>card_action.type</code> 是 {@link Type#MINI_PROGRAM} 时选填
-             */
-            @JsonProperty("pagepath")
-            private String pagePath;
 
             public String getPagePath() {
                 return pagePath;
@@ -522,7 +515,7 @@ public class WeComTemplateCardMessage extends WeComMessage {
              * <h2>跳转事件的小程序的pagePath</h2>
              *
              * @param pagePath 跳转事件的小程序的pagePath
-             * @apiNote <code>card_action.type</code> 是 {@link Type#MINI_PROGRAM} 时选填
+             * @apiNote {@code card_action.type} 是 {@link Type#MINI_PROGRAM} 时选填
              */
             public void setPagePath(String pagePath) {
                 this.pagePath = pagePath;
@@ -592,16 +585,8 @@ public class WeComTemplateCardMessage extends WeComMessage {
                 return url;
             }
 
-            /**
-             * <h2>跳转链接的url</h2>
-             *
-             * @param url 跳转链接的url
-             * @apiNote <code>jump_list.type</code> 是 {@link Type#URL} 时必填
-             */
-            public Jump setUrl(String url) {
-                this.url = url;
-                return this;
-            }
+            @JsonProperty(WeComAlias.PAGE_PATH)
+            private String pagePath;
 
             private String appid;
 
@@ -610,18 +595,26 @@ public class WeComTemplateCardMessage extends WeComMessage {
             }
 
             /**
+             * <h2>跳转链接的url</h2>
+             *
+             * @param url 跳转链接的url
+             * @apiNote {@code jump_list.type} 是 {@link Type#URL} 时必填
+             */
+            public Jump setUrl(String url) {
+                this.url = url;
+                return this;
+            }
+
+            /**
              * <h2>跳转链接的小程序的appid</h2>
              *
              * @param appid 跳转链接的小程序的appid
-             * @apiNote <code>jump_list.type</code> 是 {@link Type#MINI_PROGRAM} 时必填
+             * @apiNote {@code jump_list.type} 是 {@link Type#MINI_PROGRAM} 时必填
              */
             public Jump setAppid(String appid) {
                 this.appid = appid;
                 return this;
             }
-
-            @JsonProperty("pagepath")
-            private String pagePath;
 
             public String getPagePath() {
                 return pagePath;
@@ -631,7 +624,7 @@ public class WeComTemplateCardMessage extends WeComMessage {
              * <h2>跳转链接的小程序的pagePath</h2>
              *
              * @param pagePath 跳转链接的小程序的pagePath
-             * @apiNote <code>jump_list.type</code> 是 {@link Type#MINI_PROGRAM} 时选填
+             * @apiNote {@code jump_list.type} 是 {@link Type#MINI_PROGRAM} 时选填
              */
             public void setPagePath(String pagePath) {
                 this.pagePath = pagePath;
@@ -666,7 +659,7 @@ public class WeComTemplateCardMessage extends WeComMessage {
         }
 
         public static class HorizontalContent {
-            @JsonProperty("keyname")
+            @JsonProperty(WeComAlias.KEY_NAME)
             private String keyName;
 
             public String getKeyName() {
@@ -689,17 +682,8 @@ public class WeComTemplateCardMessage extends WeComMessage {
             public String getValue() {
                 return value;
             }
-
-            /**
-             * <h2>二级文本</h2>
-             *
-             * @param value 二级文本
-             * @apiNote 如果 <code>horizontal_content_list.type</code> 是 {@link Type#DOWNLOAD}，该字段代表文件名称（要包含文件类型），建议不超过26个字
-             */
-            public HorizontalContent setValue(String value) {
-                this.value = value;
-                return this;
-            }
+            @JsonProperty(WeComAlias.MEDIA)
+            private String mediaId;
 
             private String url;
 
@@ -708,18 +692,26 @@ public class WeComTemplateCardMessage extends WeComMessage {
             }
 
             /**
+             * <h2>二级文本</h2>
+             *
+             * @param value 二级文本
+             * @apiNote 如果 {@code horizontal_content_list.type} 是 {@link Type#DOWNLOAD}，该字段代表文件名称（要包含文件类型），建议不超过26个字
+             */
+            public HorizontalContent setValue(String value) {
+                this.value = value;
+                return this;
+            }
+
+            /**
              * <h2>链接跳转的url</h2>
              *
              * @param url 链接跳转的url
-             * @apiNote <code>horizontal_content_list.type</code> 是 {@link Type#URL} 时必填
+             * @apiNote {@code horizontal_content_list.type} 是 {@link Type#URL} 时必填
              */
             public HorizontalContent setUrl(String url) {
                 this.url = url;
                 return this;
             }
-
-            @JsonProperty("media_id")
-            private String mediaId;
 
             public String getMediaId() {
                 return mediaId;
@@ -729,7 +721,7 @@ public class WeComTemplateCardMessage extends WeComMessage {
              * <h2>附件的media_id</h2>
              *
              * @param mediaId 附件的media_id
-             * @apiNote <code>horizontal_content_list.type</code> 是 {@link Type#DOWNLOAD} 时必填
+             * @apiNote {@code horizontal_content_list.type} 是 {@link Type#DOWNLOAD} 时必填
              */
             public void setMediaId(String mediaId) {
                 this.mediaId = mediaId;
@@ -745,7 +737,7 @@ public class WeComTemplateCardMessage extends WeComMessage {
              * <h2>被@的成员的userid</h2>
              *
              * @param userid 被@的成员的userid
-             * @apiNote <code>horizontal_content_list.type</code> 是 {@link Type#AT} 时必填
+             * @apiNote {@code horizontal_content_list.type} 是 {@link Type#AT} 时必填
              */
             public HorizontalContent setUserid(String userid) {
                 this.userid = userid;
@@ -802,7 +794,7 @@ public class WeComTemplateCardMessage extends WeComMessage {
         }
 
         public static class Source {
-            @JsonProperty("icon_url")
+            @JsonProperty(WeComAlias.ICON_URL)
             private String iconUrl;
 
             public String getIconUrl() {
@@ -836,7 +828,7 @@ public class WeComTemplateCardMessage extends WeComMessage {
                 return this;
             }
 
-            @JsonProperty("desc_color")
+            @JsonProperty(WeComAlias.DESC_COLOR)
             private Integer descColor;
 
             public Integer getDescColor() {
@@ -974,16 +966,8 @@ public class WeComTemplateCardMessage extends WeComMessage {
                 return url;
             }
 
-            /**
-             * <h2>点击跳转的url</h2>
-             *
-             * @param url 点击跳转的url
-             * @apiNote <code>quote_area.type</code> 是 {@link Type#URL} 时必填
-             */
-            public QuoteArea setUrl(String url) {
-                this.url = url;
-                return this;
-            }
+            @JsonProperty(WeComAlias.PAGE_PATH)
+            private String pagePath;
 
             /**
              *
@@ -993,33 +977,33 @@ public class WeComTemplateCardMessage extends WeComMessage {
             public String getAppid() {
                 return appid;
             }
+            @JsonProperty(WeComAlias.QUOTE_TEXT)
+            private String quoteText;
 
             /**
-             * <h2>点击跳转的小程序的appid</h2>
+             * <h2>点击跳转的url</h2>
              *
-             * @param appid 点击跳转的小程序的appid
-             * @apiNote <code>quote_area.type</code> 是 {@link Type#MINI_PROGRAM} 时必填
+             * @param url 点击跳转的url
+             * @apiNote {@code quote_area.type} 是 {@link Type#URL} 时必填
              */
-            public QuoteArea setAppid(String appid) {
-                this.appid = appid;
+            public QuoteArea setUrl(String url) {
+                this.url = url;
                 return this;
             }
-
-            @JsonProperty("pagepath")
-            private String pagePath;
 
             public String getPagePath() {
                 return pagePath;
             }
 
             /**
-             * <h2>点击跳转的小程序的pagePath</h2>
+             * <h2>点击跳转的小程序的 {@code AppId}</h2>
              *
-             * @param pagePath 点击跳转的小程序的pagePath
-             * @apiNote <code>quote_area.type</code> 是 {@link Type#MINI_PROGRAM} 时选填
+             * @param appid 点击跳转的小程序的 {@code AppId}
+             * @apiNote {@code quote_area.type} 是 {@link Type#MINI_PROGRAM} 时必填
              */
-            public void setPagePath(String pagePath) {
-                this.pagePath = pagePath;
+            public QuoteArea setAppid(String appid) {
+                this.appid = appid;
+                return this;
             }
 
             /**
@@ -1041,8 +1025,15 @@ public class WeComTemplateCardMessage extends WeComMessage {
                 return this;
             }
 
-            @JsonProperty("quote_text")
-            private String quoteText;
+            /**
+             * <h2>点击跳转的小程序的pagePath</h2>
+             *
+             * @param pagePath 点击跳转的小程序的pagePath
+             * @apiNote {@code quote_area.type} 是 {@link Type#MINI_PROGRAM} 时选填
+             */
+            public void setPagePath(String pagePath) {
+                this.pagePath = pagePath;
+            }
 
             public String getQuoteText() {
                 return quoteText;

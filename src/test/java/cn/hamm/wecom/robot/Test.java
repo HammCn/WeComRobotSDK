@@ -1,16 +1,16 @@
 package cn.hamm.wecom.robot;
 
 
+import cn.hamm.wecom.robot.base.WeComFile;
 import cn.hamm.wecom.robot.exception.WeComException;
 import cn.hamm.wecom.robot.message.*;
 import cn.hamm.wecom.robot.message.WeComTemplateCardMessage.TemplateCard.Source.DescColor;
 
-import java.io.*;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.NoSuchAlgorithmException;
 
-import static cn.hamm.wecom.robot.message.WeComTemplateCardMessage.*;
+import static cn.hamm.wecom.robot.message.WeComTemplateCardMessage.TemplateCard;
 
 public class Test {
     private static final String ROBOT_KEY = "ea2edec3-61af-4094-acaf-73e228cad3bb";

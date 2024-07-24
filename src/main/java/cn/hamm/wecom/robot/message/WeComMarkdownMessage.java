@@ -1,6 +1,7 @@
 package cn.hamm.wecom.robot.message;
 
-import cn.hamm.wecom.robot.WeComMessage;
+import cn.hamm.wecom.robot.base.WeComMessage;
+import cn.hamm.wecom.robot.constant.WeComAlias;
 
 /**
  * <h1>MarkDown</h1>
@@ -8,8 +9,9 @@ import cn.hamm.wecom.robot.WeComMessage;
  * @author Hamm.cn
  */
 public class WeComMarkdownMessage extends WeComMessage {
+
     public WeComMarkdownMessage() {
-        this.setMsgType("markdown");
+        this.setMsgType(WeComAlias.MARKDOWN);
     }
 
     private MarkDown markdown = new MarkDown();
@@ -31,9 +33,9 @@ public class WeComMarkdownMessage extends WeComMessage {
         }
 
         /**
-         * <h2>设置markdown内容</h2>
+         * <h2>设置 {@code MarkDown} 内容</h2>
          *
-         * @param content markdown内容
+         * @param content {@code MarkDown} 内容
          */
         public MarkDown setContent(String content) {
             this.content = content;

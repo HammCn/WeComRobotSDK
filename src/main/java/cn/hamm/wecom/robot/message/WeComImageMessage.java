@@ -1,6 +1,7 @@
 package cn.hamm.wecom.robot.message;
 
-import cn.hamm.wecom.robot.WeComMessage;
+import cn.hamm.wecom.robot.base.WeComMessage;
+import cn.hamm.wecom.robot.constant.WeComAlias;
 import cn.hamm.wecom.robot.util.ImageUtil;
 
 import java.io.InputStream;
@@ -14,8 +15,9 @@ import java.util.Base64;
  * @author Hamm.cn
  */
 public class WeComImageMessage extends WeComMessage {
+
     public WeComImageMessage() {
-        this.setMsgType("image");
+        this.setMsgType(WeComAlias.IMAGE);
     }
 
     private Image image = new Image();
@@ -37,9 +39,9 @@ public class WeComImageMessage extends WeComMessage {
         }
 
         /**
-         * <h2>图片内容的base64编码</h2>
+         * <h2>图片内容的 {@code Base64} 编码</h2>
          *
-         * @param base64 图片内容的base64编码
+         * @param base64 图片内容的 {@code Base64} 编码
          */
         public Image setBase64(String base64) {
             this.base64 = base64;
@@ -53,9 +55,9 @@ public class WeComImageMessage extends WeComMessage {
         }
 
         /**
-         * <h2>图片内容（base64编码前）的md5值</h2>
+         * <h2>图片内容 {@code Base64编码前} 的md5值</h2>
          *
-         * @param md5 图片内容（base64编码前）的md5值
+         * @param md5 图片内容 {@code Base64编码前} 的 {@code MD5} 值
          */
         public Image setMd5(String md5) {
             this.md5 = md5;

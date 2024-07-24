@@ -1,6 +1,7 @@
 package cn.hamm.wecom.robot.message;
 
-import cn.hamm.wecom.robot.WeComMessage;
+import cn.hamm.wecom.robot.base.WeComMessage;
+import cn.hamm.wecom.robot.constant.WeComAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
@@ -13,8 +14,9 @@ import java.util.Objects;
  * @author Hamm.cn
  */
 public class WeComTextMessage extends WeComMessage {
+
     public WeComTextMessage() {
-        this.setMsgType("text");
+        this.setMsgType(WeComAlias.TEXT);
     }
 
     private Text text = new Text();
@@ -46,18 +48,20 @@ public class WeComTextMessage extends WeComMessage {
             return this;
         }
 
-        @JsonProperty("mentioned_list")
+        @JsonProperty(WeComAlias.MENTIONED_LIST)
         List<String> mentionedList = new ArrayList<>();
 
         public List<String> getMentionedList() {
             return mentionedList;
         }
+        @JsonProperty(WeComAlias.MENTIONED_MOBILE_LIST)
+        private List<String> mentionedMobileList;
 
         /**
          * <h2>提醒成员userid列表</h2>
          *
          * @param mentionedList userid的列表
-         * @apiNote 提醒群中的指定成员(@ 某个成员)，@all表示提醒所有人，如果开发者获取不到userid，可以使用 <code>mentioned_mobile_list</code>
+         * @apiNote 提醒群中的指定成员(@ 某个成员)，@all表示提醒所有人，如果开发者获取不到userid，可以使用 {@code mentioned_mobile_list}
          */
         public Text setMentionedList(List<String> mentionedList) {
             this.mentionedList = mentionedList;
@@ -68,7 +72,7 @@ public class WeComTextMessage extends WeComMessage {
          * <h2>添加提醒成员</h2>
          *
          * @param mentioned 提醒成员
-         * @apiNote 提醒群中的指定成员(@ 某个成员)，@all表示提醒所有人，如果开发者获取不到userid，可以使用 <code>mentioned_mobile_list</code>
+         * @apiNote 提醒群中的指定成员(@ 某个成员)，@all表示提醒所有人，如果开发者获取不到userid，可以使用 {@code mentioned_mobile_list}
          */
         public Text addMentioned(String mentioned) {
             if (Objects.isNull(mentionedList)) {
@@ -78,9 +82,6 @@ public class WeComTextMessage extends WeComMessage {
             return this;
         }
 
-        @JsonProperty("mentioned_mobile_list")
-        private List<String> mentionedMobileList;
-
         public List<String> getMentionedMobileList() {
             return mentionedMobileList;
         }
@@ -89,7 +90,7 @@ public class WeComTextMessage extends WeComMessage {
          * <h2>提醒手机号列表</h2>
          *
          * @param mentionedMobileList 手机号列表
-         * @apiNote 提醒手机号对应的群成员(@ 某个成员)，<code>@all</code>表示提醒所有人
+         * @apiNote 提醒手机号对应的群成员(@ 某个成员)，{@code @all}表示提醒所有人
          */
         public Text setMentionedMobileList(List<String> mentionedMobileList) {
             this.mentionedMobileList = mentionedMobileList;
@@ -100,7 +101,7 @@ public class WeComTextMessage extends WeComMessage {
          * <h2>添加提醒手机号</h2>
          *
          * @param mentionedMobile 手机号
-         * @apiNote 提醒手机号对应的群成员(@ 某个成员)，<code>@all</code>表示提醒所有人
+         * @apiNote 提醒手机号对应的群成员(@ 某个成员)，{@code @all}表示提醒所有人
          */
         public Text addMentionedMobile(String mentionedMobile) {
             if (Objects.isNull(mentionedMobileList)) {

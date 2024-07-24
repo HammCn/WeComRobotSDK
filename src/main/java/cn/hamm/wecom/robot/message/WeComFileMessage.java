@@ -1,7 +1,8 @@
 package cn.hamm.wecom.robot.message;
 
-import cn.hamm.wecom.robot.WeComFile;
-import cn.hamm.wecom.robot.WeComMessage;
+import cn.hamm.wecom.robot.base.WeComFile;
+import cn.hamm.wecom.robot.base.WeComMessage;
+import cn.hamm.wecom.robot.constant.WeComAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -11,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class WeComFileMessage extends WeComMessage {
     public WeComFileMessage() {
-        this.setMsgType("file");
+        this.setMsgType(WeComAlias.FILE);
     }
 
     private File file = new File();
@@ -26,7 +27,7 @@ public class WeComFileMessage extends WeComMessage {
     }
 
     public static class File {
-        @JsonProperty("media_id")
+        @JsonProperty(WeComAlias.MEDIA_ID)
         private String mediaId;
 
         public String getMediaId() {
@@ -34,9 +35,9 @@ public class WeComFileMessage extends WeComMessage {
         }
 
         /**
-         * <h2>文件id</h2>
+         * <h2>文件 {@code ID}</h2>
          *
-         * @param mediaId 文件ID
+         * @param mediaId 文件 {@code ID}
          * @see WeComFile#uploadFile
          */
         public File setMediaId(String mediaId) {

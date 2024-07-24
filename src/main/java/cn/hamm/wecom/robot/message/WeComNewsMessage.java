@@ -1,6 +1,7 @@
 package cn.hamm.wecom.robot.message;
 
-import cn.hamm.wecom.robot.WeComMessage;
+import cn.hamm.wecom.robot.base.WeComMessage;
+import cn.hamm.wecom.robot.constant.WeComAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
@@ -13,8 +14,9 @@ import java.util.Objects;
  * @author Hamm.cn
  */
 public class WeComNewsMessage extends WeComMessage {
+
     public WeComNewsMessage() {
-        this.setMsgType("news");
+        this.setMsgType(WeComAlias.NEWS);
     }
 
     private News news = new News();
@@ -111,7 +113,7 @@ public class WeComNewsMessage extends WeComMessage {
                 return this;
             }
 
-            @JsonProperty("picurl")
+            @JsonProperty(WeComAlias.PICTURE_URL)
             private String picUrl;
 
             public String getPicUrl() {
