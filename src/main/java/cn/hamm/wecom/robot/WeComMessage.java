@@ -1,5 +1,6 @@
 package cn.hamm.wecom.robot;
 
+import cn.hamm.wecom.robot.enums.MsgTypeEnum;
 import cn.hamm.wecom.robot.exception.WeComException;
 import cn.hamm.wecom.robot.util.HttpUtil;
 import cn.hamm.wecom.robot.util.JsonUtil;
@@ -15,14 +16,19 @@ import java.util.Map;
 public class WeComMessage extends WeCom {
 
     @JsonProperty("msgtype")
-    private String msgType;
+    private MsgTypeEnum msgTypeEnum;
 
-    public String getMsgType() {
-        return msgType;
+
+    public WeComMessage() {
+
     }
 
-    protected void setMsgType(String msgType) {
-        this.msgType = msgType;
+    public MsgTypeEnum getMsgTypeEnum() {
+        return msgTypeEnum;
+    }
+
+    public void setMsgTypeEnum(MsgTypeEnum msgTypeEnum) {
+        this.msgTypeEnum = msgTypeEnum;
     }
 
     /**
