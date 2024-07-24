@@ -13,6 +13,7 @@ import java.util.Map;
  * @author Hamm.cn
  */
 public class WeComMessage extends WeCom {
+
     @JsonProperty("msgtype")
     private String msgType;
 
@@ -33,9 +34,7 @@ public class WeComMessage extends WeCom {
     public final void send(String robotKey) throws WeComException {
         try {
             String request = JsonUtil.toString(this);
-            System.out.println(request);
             String response = HttpUtil.post(WEB_HOOK_URL + robotKey, request);
-            System.out.println(response);
             Map map = JsonUtil.parse(response, Map.class);
             int errorCode = (int) map.get(CODE_KEY);
             if (errorCode != SUCCESS_CODE) {
