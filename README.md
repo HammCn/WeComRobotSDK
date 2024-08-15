@@ -30,7 +30,15 @@ weComTextMessage.getText().setContent("text");
 weComTextMessage.send(ROBOT_KEY);
 ```
 
-### 2. 图片类型消息
+### 2. `Markdown`类型消息
+
+```java
+WeComMarkdownMessage weComMarkdownMessage = new WeComMarkdownMessage();
+weComMarkdownMessage.getMarkdown().setContent("markdown");
+weComMarkdownMessage.send(ROBOT_KEY);
+```
+
+### 3. 图片类型消息
 
 ```java
 WeComImageMessage weComImageMessage = new WeComImageMessage();
@@ -40,7 +48,7 @@ weComImageMessage.getImage().setPath(path);
 weComImageMessage.send(ROBOT_KEY);
 ```
 
-### 3. 图文类型消息
+### 4. 图文类型消息
 
 ```java
 WeComNewsMessage weComNewsMessage = new WeComNewsMessage();
@@ -60,7 +68,7 @@ weComNewsMessage.getNews().addArticle(
 weComNewsMessage.send(ROBOT_KEY);
 ```
 
-### 4. 文件类型消息
+### 5. 文件类型消息
 
 ```java
 String file = "src/test/resources/test.pdf";
@@ -70,7 +78,7 @@ weComFileMessage.getFile().setMediaId(mediaId);
 weComFileMessage.send(ROBOT_KEY);
 ```
 
-### 5. 语音消息
+### 6. 语音消息
 
 ```java
 String file = "src/test/resources/voice.amr";
@@ -80,9 +88,9 @@ weComVoiceMessage.getVoice().setMediaId(mediaId);
 weComVoiceMessage.send(ROBOT_KEY);
 ```
 
-### 6. 模板卡片消息
+### 7. 模板卡片消息
 
-- 6.1 文本通知卡片
+- 7.1 文本通知卡片
     
 ```java
 // 按需设置
@@ -102,7 +110,7 @@ weComTemplateCardMessage.setTemplateCard(templateCard);
 weComTemplateCardMessage.send(ROBOT_KEY);
 ```    
 
-- 6.2 图文展示卡片
+- 7.2 图文展示卡片
 
 ```java
 // 按需设置
@@ -122,7 +130,7 @@ weComTemplateCardMessage.setTemplateCard(templateCard);
 weComTemplateCardMessage.send(ROBOT_KEY);
 ```   
 
-### 7. 文件上传
+### 8. 文件上传
 
 ```java
 // 上传语音
