@@ -37,7 +37,7 @@ public class WeComMessage {
             String request = JsonUtil.toString(this);
             String response = HttpUtil.post(String.format(WeComConstant.WEB_HOOK_URL, robotKey), request);
             Map<?, ?> map = JsonUtil.parse(response, Map.class);
-            int errorCode = (int) map.get(WeComAlias.ERROR_CODE);
+            int errorCode = Integer.parseInt(map.get(WeComAlias.ERROR_CODE).toString());
             if (errorCode != WeComConstant.SUCCESS_CODE) {
                 throw new WeComException(response);
             }

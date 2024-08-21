@@ -71,7 +71,7 @@ public class WeComFile {
                 if (httpEntity != null) {
                     String body = EntityUtils.toString(httpEntity, StandardCharsets.UTF_8);
                     Map<?, ?> map = JsonUtil.parse(body, Map.class);
-                    int errorCode = (int) map.get(WeComAlias.ERROR_CODE);
+                    int errorCode = Integer.parseInt(map.get(WeComAlias.ERROR_CODE).toString());
                     if (errorCode != WeComConstant.SUCCESS_CODE) {
                         throw new WeComException(body);
                     }
