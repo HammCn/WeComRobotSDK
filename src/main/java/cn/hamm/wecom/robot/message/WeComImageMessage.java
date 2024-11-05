@@ -16,11 +16,11 @@ import java.util.Base64;
  */
 public class WeComImageMessage extends WeComMessage {
 
+    private Image image = new Image();
+
     public WeComImageMessage() {
         this.setMsgType(WeComAlias.IMAGE);
     }
-
-    private Image image = new Image();
 
     public Image getImage() {
         return image;
@@ -33,6 +33,7 @@ public class WeComImageMessage extends WeComMessage {
 
     public static class Image {
         private String base64;
+        private String md5;
 
         public String getBase64() {
             return base64;
@@ -47,8 +48,6 @@ public class WeComImageMessage extends WeComMessage {
             this.base64 = base64;
             return this;
         }
-
-        private String md5;
 
         public String getMd5() {
             return md5;

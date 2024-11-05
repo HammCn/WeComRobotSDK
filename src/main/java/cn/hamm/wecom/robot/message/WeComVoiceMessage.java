@@ -12,11 +12,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class WeComVoiceMessage extends WeComMessage {
 
+    private Voice voice = new Voice();
+
     public WeComVoiceMessage() {
         this.setMsgType(WeComAlias.VOICE);
     }
-
-    private Voice voice = new Voice();
 
     public Voice getVoice() {
         return voice;

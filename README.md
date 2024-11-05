@@ -24,6 +24,7 @@
 请注意，以下为示例代码，仅展示了常用的一些配置方法，可安装依赖后在项目中查看更多。
 
 ### 1. 文本类型消息
+
 ```java
 WeComTextMessage weComTextMessage = new WeComTextMessage();
 weComTextMessage.getText().setContent("text");
@@ -91,7 +92,7 @@ weComVoiceMessage.send(ROBOT_KEY);
 ### 7. 模板卡片消息
 
 - 7.1 文本通知卡片
-    
+
 ```java
 // 按需设置
 WeComTemplateCardMessage weComTemplateCardMessage = new WeComTemplateCardMessage();

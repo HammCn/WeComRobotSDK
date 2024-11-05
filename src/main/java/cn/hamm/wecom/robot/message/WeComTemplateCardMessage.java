@@ -14,7 +14,6 @@ import java.util.Objects;
  * @author Hamm.cn
  */
 public class WeComTemplateCardMessage extends WeComMessage {
-
     @JsonProperty(WeComAlias.TEMPLATE_CARD)
     private TemplateCard templateCard = new TemplateCard();
 
@@ -40,13 +39,43 @@ public class WeComTemplateCardMessage extends WeComMessage {
         @JsonProperty(WeComAlias.CARD_TYPE)
         private String cardType = WeComAlias.TEXT_NOTICE;
 
+        @JsonProperty(WeComAlias.SUB_TITLE_TEXT)
+        private String subTitleText;
+
+        @JsonProperty(WeComAlias.MAIN_TITLE)
+        private MainTitle mainTitle = new MainTitle();
+
+        private Source source = new Source();
+
+        @JsonProperty(WeComAlias.EMPHASIS_CONTENT)
+        private EmphasisContent emphasisContent = new EmphasisContent();
+
+        @JsonProperty(WeComAlias.QUOTE_AREA)
+        private QuoteArea quoteArea;
+
+        @JsonProperty(WeComAlias.HORIZONTAL_CONTENT_LIST)
+        private List<HorizontalContent> horizontalContentList = new ArrayList<>();
+
+        /**
+         * <h2>跳转指引样式的列表</h2>
+         *
+         * @apiNote 该字段可为空数组，但有数据的话需确认对应字段是否必填，列表长度不超过3
+         */
+        @JsonProperty(WeComAlias.JUMP_LIST)
+        private List<Jump> jumpList = new ArrayList<>();
+
+        @JsonProperty(WeComAlias.CARD_ACTION)
+        private CardAction cardAction = new CardAction();
+
+        @JsonProperty(WeComAlias.CARD_IMAGE)
+        private CardImage cardImage = new CardImage();
+
+        @JsonProperty(WeComAlias.IMAGE_TEXT_AREA)
+        private ImageTextArea imageTextArea = new ImageTextArea();
+
         public String getCardType() {
             return cardType;
         }
-        @JsonProperty(WeComAlias.SUB_TITLE_TEXT)
-        private String subTitleText;
-        @JsonProperty(WeComAlias.MAIN_TITLE)
-        private MainTitle mainTitle = new MainTitle();
 
         /**
          * <h2>卡片类型</h2>
@@ -56,8 +85,6 @@ public class WeComTemplateCardMessage extends WeComMessage {
         public void setCardType(String cardType) {
             this.cardType = cardType;
         }
-
-        private Source source = new Source();
 
         public Source getSource() {
             return source;
@@ -72,25 +99,19 @@ public class WeComTemplateCardMessage extends WeComMessage {
             this.source = source;
             return this;
         }
-        @JsonProperty(WeComAlias.EMPHASIS_CONTENT)
-        private EmphasisContent emphasisContent = new EmphasisContent();
 
         public String getSubTitleText() {
             return subTitleText;
         }
-        @JsonProperty(WeComAlias.QUOTE_AREA)
-        private QuoteArea quoteArea;
-        @JsonProperty(WeComAlias.HORIZONTAL_CONTENT_LIST)
-        private List<HorizontalContent> horizontalContentList = new ArrayList<>();
 
         /**
-         * <h2>模版卡片的主要内容</h2>
+         * <h2>二级普通文本</h2>
          *
-         * @param mainTitle 模版卡片的主要内容
+         * @param subTitleText 二级普通文本
+         * @apiNote 建议不超过112个字，模版卡片主要内容的一级标题 {@code main_title.title} 和二级普通文本 {@code sub_title_text} 必须有一项填写
          */
-        public TemplateCard setMainTitle(MainTitle mainTitle) {
-            this.mainTitle = mainTitle;
-            return this;
+        public void setSubTitleText(String subTitleText) {
+            this.subTitleText = subTitleText;
         }
 
         /**
@@ -101,13 +122,16 @@ public class WeComTemplateCardMessage extends WeComMessage {
         public MainTitle getMainTitle() {
             return mainTitle;
         }
+
         /**
-         * <h2>跳转指引样式的列表</h2>
+         * <h2>模版卡片的主要内容</h2>
          *
-         * @apiNote 该字段可为空数组，但有数据的话需确认对应字段是否必填，列表长度不超过3
+         * @param mainTitle 模版卡片的主要内容
          */
-        @JsonProperty(WeComAlias.JUMP_LIST)
-        private List<Jump> jumpList = new ArrayList<>();
+        public TemplateCard setMainTitle(MainTitle mainTitle) {
+            this.mainTitle = mainTitle;
+            return this;
+        }
 
         public EmphasisContent getEmphasisContent() {
             return emphasisContent;
@@ -122,8 +146,6 @@ public class WeComTemplateCardMessage extends WeComMessage {
             this.emphasisContent = emphasisContent;
             return this;
         }
-        @JsonProperty(WeComAlias.CARD_ACTION)
-        private CardAction cardAction = new CardAction();
 
         public QuoteArea getQuoteArea() {
             return quoteArea;
@@ -139,8 +161,6 @@ public class WeComTemplateCardMessage extends WeComMessage {
             this.quoteArea = quoteArea;
             return this;
         }
-        @JsonProperty(WeComAlias.CARD_IMAGE)
-        private CardImage cardImage = new CardImage();
 
         public List<HorizontalContent> getHorizontalContentList() {
             return horizontalContentList;
@@ -170,8 +190,6 @@ public class WeComTemplateCardMessage extends WeComMessage {
             horizontalContentList.add(horizontalContent);
             return this;
         }
-        @JsonProperty(WeComAlias.IMAGE_TEXT_AREA)
-        private ImageTextArea imageTextArea = new ImageTextArea();
 
         public List<Jump> getJumpList() {
             return jumpList;
@@ -247,16 +265,6 @@ public class WeComTemplateCardMessage extends WeComMessage {
             return this;
         }
 
-        /**
-         * <h2>二级普通文本</h2>
-         *
-         * @param subTitleText 二级普通文本
-         * @apiNote 建议不超过112个字，模版卡片主要内容的一级标题 {@code main_title.title} 和二级普通文本 {@code sub_title_text} 必须有一项填写
-         */
-        public void setSubTitleText(String subTitleText) {
-            this.subTitleText = subTitleText;
-        }
-
         public ImageTextArea getImageTextArea() {
             return imageTextArea;
         }
@@ -274,6 +282,20 @@ public class WeComTemplateCardMessage extends WeComMessage {
         public static class ImageTextArea {
             private String url;
 
+            private String appid;
+
+            @JsonProperty(WeComAlias.PAGE_PATH)
+            private String pagePath;
+
+            private String title;
+
+            private String desc;
+
+            @JsonProperty(WeComAlias.IMAGE_URL)
+            private String imageUrl;
+
+            private Integer type = Type.NONE.getValue();
+
             public String getUrl() {
                 return url;
             }
@@ -289,8 +311,6 @@ public class WeComTemplateCardMessage extends WeComMessage {
                 return this;
             }
 
-            private String appid;
-
             public String getAppid() {
                 return appid;
             }
@@ -304,9 +324,6 @@ public class WeComTemplateCardMessage extends WeComMessage {
             public void setAppid(String appid) {
                 this.appid = appid;
             }
-
-            @JsonProperty(WeComAlias.PAGE_PATH)
-            private String pagePath;
 
             public String getPagePath() {
                 return pagePath;
@@ -323,8 +340,6 @@ public class WeComTemplateCardMessage extends WeComMessage {
                 return this;
             }
 
-            private String title;
-
             public String getTitle() {
                 return title;
             }
@@ -339,8 +354,6 @@ public class WeComTemplateCardMessage extends WeComMessage {
                 return this;
             }
 
-            private String desc;
-
             public String getDesc() {
                 return desc;
             }
@@ -348,9 +361,6 @@ public class WeComTemplateCardMessage extends WeComMessage {
             public void setDesc(String desc) {
                 this.desc = desc;
             }
-
-            @JsonProperty(WeComAlias.IMAGE_URL)
-            private String imageUrl;
 
             public String getImageUrl() {
                 return imageUrl;
@@ -365,8 +375,6 @@ public class WeComTemplateCardMessage extends WeComMessage {
                 this.imageUrl = imageUrl;
                 return this;
             }
-
-            private Integer type = Type.NONE.getValue();
 
             public Integer getType() {
                 return type;
@@ -414,6 +422,9 @@ public class WeComTemplateCardMessage extends WeComMessage {
         public static class CardImage {
             private String url;
 
+            @JsonProperty(WeComAlias.ASPECT_RATIO)
+            private Double aspectRatio = 1.3;
+
             public String getUrl() {
                 return url;
             }
@@ -427,9 +438,6 @@ public class WeComTemplateCardMessage extends WeComMessage {
                 this.url = url;
                 return this;
             }
-
-            @JsonProperty(WeComAlias.ASPECT_RATIO)
-            private Double aspectRatio = 1.3;
 
             public Double getAspectRatio() {
                 return aspectRatio;
@@ -449,10 +457,6 @@ public class WeComTemplateCardMessage extends WeComMessage {
         public static class CardAction {
             private Integer type = Type.URL.getValue();
 
-            public Integer getType() {
-                return type;
-            }
-
             /**
              * <h2>跳转事件的小程序的pagepath</h2>
              *
@@ -463,8 +467,10 @@ public class WeComTemplateCardMessage extends WeComMessage {
 
             private String url;
 
-            public String getUrl() {
-                return url;
+            private String appid;
+
+            public Integer getType() {
+                return type;
             }
 
             /**
@@ -479,10 +485,8 @@ public class WeComTemplateCardMessage extends WeComMessage {
                 return this;
             }
 
-            private String appid;
-
-            public String getAppid() {
-                return appid;
+            public String getUrl() {
+                return url;
             }
 
             /**
@@ -494,6 +498,10 @@ public class WeComTemplateCardMessage extends WeComMessage {
             public CardAction setUrl(String url) {
                 this.url = url;
                 return this;
+            }
+
+            public String getAppid() {
+                return appid;
             }
 
             /**
@@ -547,6 +555,15 @@ public class WeComTemplateCardMessage extends WeComMessage {
         public static class Jump {
             private Integer type = Type.NORMAL.getValue();
 
+            private String title;
+
+            private String url;
+
+            @JsonProperty(WeComAlias.PAGE_PATH)
+            private String pagePath;
+
+            private String appid;
+
             public Integer getType() {
                 return type;
             }
@@ -561,8 +578,6 @@ public class WeComTemplateCardMessage extends WeComMessage {
                 this.type = type.getValue();
                 return this;
             }
-
-            private String title;
 
             public String getTitle() {
                 return title;
@@ -579,19 +594,8 @@ public class WeComTemplateCardMessage extends WeComMessage {
                 return this;
             }
 
-            private String url;
-
             public String getUrl() {
                 return url;
-            }
-
-            @JsonProperty(WeComAlias.PAGE_PATH)
-            private String pagePath;
-
-            private String appid;
-
-            public String getAppid() {
-                return appid;
             }
 
             /**
@@ -603,6 +607,10 @@ public class WeComTemplateCardMessage extends WeComMessage {
             public Jump setUrl(String url) {
                 this.url = url;
                 return this;
+            }
+
+            public String getAppid() {
+                return appid;
             }
 
             /**
@@ -662,6 +670,17 @@ public class WeComTemplateCardMessage extends WeComMessage {
             @JsonProperty(WeComAlias.KEY_NAME)
             private String keyName;
 
+            private String value;
+            @JsonProperty(WeComAlias.MEDIA)
+
+            private String mediaId;
+
+            private String url;
+
+            private String userid;
+
+            private Integer type;
+
             public String getKeyName() {
                 return keyName;
             }
@@ -677,18 +696,8 @@ public class WeComTemplateCardMessage extends WeComMessage {
                 return this;
             }
 
-            private String value;
-
             public String getValue() {
                 return value;
-            }
-            @JsonProperty(WeComAlias.MEDIA)
-            private String mediaId;
-
-            private String url;
-
-            public String getUrl() {
-                return url;
             }
 
             /**
@@ -700,6 +709,10 @@ public class WeComTemplateCardMessage extends WeComMessage {
             public HorizontalContent setValue(String value) {
                 this.value = value;
                 return this;
+            }
+
+            public String getUrl() {
+                return url;
             }
 
             /**
@@ -727,8 +740,6 @@ public class WeComTemplateCardMessage extends WeComMessage {
                 this.mediaId = mediaId;
             }
 
-            private String userid;
-
             public String getUserid() {
                 return userid;
             }
@@ -743,8 +754,6 @@ public class WeComTemplateCardMessage extends WeComMessage {
                 this.userid = userid;
                 return this;
             }
-
-            private Integer type;
 
             public Integer getType() {
                 return type;
@@ -797,6 +806,11 @@ public class WeComTemplateCardMessage extends WeComMessage {
             @JsonProperty(WeComAlias.ICON_URL)
             private String iconUrl;
 
+            private String desc;
+
+            @JsonProperty(WeComAlias.DESC_COLOR)
+            private Integer descColor;
+
             public String getIconUrl() {
                 return iconUrl;
             }
@@ -810,8 +824,6 @@ public class WeComTemplateCardMessage extends WeComMessage {
                 this.iconUrl = iconUrl;
                 return this;
             }
-
-            private String desc;
 
             public String getDesc() {
                 return desc;
@@ -827,9 +839,6 @@ public class WeComTemplateCardMessage extends WeComMessage {
                 this.desc = desc;
                 return this;
             }
-
-            @JsonProperty(WeComAlias.DESC_COLOR)
-            private Integer descColor;
 
             public Integer getDescColor() {
                 return descColor;
@@ -870,6 +879,8 @@ public class WeComTemplateCardMessage extends WeComMessage {
         public static class MainTitle {
             private String title;
 
+            private String desc;
+
             public String getTitle() {
                 return title;
             }
@@ -884,8 +895,6 @@ public class WeComTemplateCardMessage extends WeComMessage {
                 this.title = title;
                 return this;
             }
-
-            private String desc;
 
             public String getDesc() {
                 return desc;
@@ -906,6 +915,8 @@ public class WeComTemplateCardMessage extends WeComMessage {
         public static class EmphasisContent {
             private String title;
 
+            private String desc;
+
             public String getTitle() {
                 return title;
             }
@@ -920,8 +931,6 @@ public class WeComTemplateCardMessage extends WeComMessage {
                 this.title = title;
                 return this;
             }
-
-            private String desc;
 
             public String getDesc() {
                 return desc;
@@ -940,6 +949,24 @@ public class WeComTemplateCardMessage extends WeComMessage {
 
         public static class QuoteArea {
             private Integer type;
+            /**
+             *
+             */
+            private String url;
+
+            @JsonProperty(WeComAlias.PAGE_PATH)
+            private String pagePath;
+            /**
+             *
+             */
+            private String appid;
+
+            @JsonProperty(WeComAlias.QUOTE_TEXT)
+            private String quoteText;
+            /**
+             * <h2>引用文献样式的标题</h2>
+             */
+            private String title;
 
             public Integer getType() {
                 return type;
@@ -957,28 +984,9 @@ public class WeComTemplateCardMessage extends WeComMessage {
                 return this;
             }
 
-            /**
-             *
-             */
-            private String url;
-
             public String getUrl() {
                 return url;
             }
-
-            @JsonProperty(WeComAlias.PAGE_PATH)
-            private String pagePath;
-
-            /**
-             *
-             */
-            private String appid;
-
-            public String getAppid() {
-                return appid;
-            }
-            @JsonProperty(WeComAlias.QUOTE_TEXT)
-            private String quoteText;
 
             /**
              * <h2>点击跳转的url</h2>
@@ -991,8 +999,8 @@ public class WeComTemplateCardMessage extends WeComMessage {
                 return this;
             }
 
-            public String getPagePath() {
-                return pagePath;
+            public String getAppid() {
+                return appid;
             }
 
             /**
@@ -1006,10 +1014,19 @@ public class WeComTemplateCardMessage extends WeComMessage {
                 return this;
             }
 
+            public String getPagePath() {
+                return pagePath;
+            }
+
             /**
-             * <h2>引用文献样式的标题</h2>
+             * <h2>点击跳转的小程序的pagePath</h2>
+             *
+             * @param pagePath 点击跳转的小程序的pagePath
+             * @apiNote {@code quote_area.type} 是 {@link Type#MINI_PROGRAM} 时选填
              */
-            private String title;
+            public void setPagePath(String pagePath) {
+                this.pagePath = pagePath;
+            }
 
             public String getTitle() {
                 return title;
@@ -1023,16 +1040,6 @@ public class WeComTemplateCardMessage extends WeComMessage {
             public QuoteArea setTitle(String title) {
                 this.title = title;
                 return this;
-            }
-
-            /**
-             * <h2>点击跳转的小程序的pagePath</h2>
-             *
-             * @param pagePath 点击跳转的小程序的pagePath
-             * @apiNote {@code quote_area.type} 是 {@link Type#MINI_PROGRAM} 时选填
-             */
-            public void setPagePath(String pagePath) {
-                this.pagePath = pagePath;
             }
 
             public String getQuoteText() {

@@ -9,12 +9,11 @@ import cn.hamm.wecom.robot.constant.WeComAlias;
  * @author Hamm.cn
  */
 public class WeComMarkdownMessage extends WeComMessage {
+    private MarkDown markdown = new MarkDown();
 
     public WeComMarkdownMessage() {
         this.setMsgType(WeComAlias.MARKDOWN);
     }
-
-    private MarkDown markdown = new MarkDown();
 
     public MarkDown getMarkdown() {
         return markdown;

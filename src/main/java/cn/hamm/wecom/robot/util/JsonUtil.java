@@ -31,7 +31,7 @@ public class JsonUtil {
             throw new RuntimeException(e);
         }
     }
-    
+
     private static ObjectMapper getObjectMapper() {
         if (Objects.isNull(objectMapper)) {
             objectMapper = new ObjectMapper();

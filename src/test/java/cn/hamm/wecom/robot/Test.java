@@ -13,9 +13,9 @@ import java.nio.file.Paths;
 import static cn.hamm.wecom.robot.message.WeComTemplateCardMessage.TemplateCard;
 
 public class Test {
-    private static final String ROBOT_KEY = "ea2edec3-61af-4094-acaf-73e228cad3bb";
     public static final String HAMM_CN = "https://hamm.cn";
     public static final String IMAGE_URL = "https://avatars.githubusercontent.com/u/10349107?v=4";
+    private static final String ROBOT_KEY = "ea2edec3-61af-4094-acaf-73e228cad3bb";
 
     public static void main(String... args) throws WeComException, IOException {
         String file = "src/test/resources/voice.amr";

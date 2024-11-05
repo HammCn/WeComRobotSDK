@@ -11,11 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Hamm.cn
  */
 public class WeComFileMessage extends WeComMessage {
+    private File file = new File();
+
     public WeComFileMessage() {
         this.setMsgType(WeComAlias.FILE);
     }
-
-    private File file = new File();
 
     public File getFile() {
         return file;

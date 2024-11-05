@@ -14,12 +14,11 @@ import java.util.Objects;
  * @author Hamm.cn
  */
 public class WeComNewsMessage extends WeComMessage {
+    private News news = new News();
 
     public WeComNewsMessage() {
         this.setMsgType(WeComAlias.NEWS);
     }
-
-    private News news = new News();
 
     public News getNews() {
         return news;
@@ -65,6 +64,13 @@ public class WeComNewsMessage extends WeComMessage {
         public static class Article {
             private String title;
 
+            private String description;
+
+            private String url;
+
+            @JsonProperty(WeComAlias.PICTURE_URL)
+            private String picUrl;
+
             public String getTitle() {
                 return title;
             }
@@ -79,8 +85,6 @@ public class WeComNewsMessage extends WeComMessage {
                 this.title = title;
                 return this;
             }
-
-            private String description;
 
             public String getDescription() {
                 return description;
@@ -97,8 +101,6 @@ public class WeComNewsMessage extends WeComMessage {
                 return this;
             }
 
-            private String url;
-
             public String getUrl() {
                 return url;
             }
@@ -112,9 +114,6 @@ public class WeComNewsMessage extends WeComMessage {
                 this.url = url;
                 return this;
             }
-
-            @JsonProperty(WeComAlias.PICTURE_URL)
-            private String picUrl;
 
             public String getPicUrl() {
                 return picUrl;

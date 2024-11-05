@@ -15,11 +15,11 @@ import java.util.Objects;
  */
 public class WeComTextMessage extends WeComMessage {
 
+    private Text text = new Text();
+
     public WeComTextMessage() {
         this.setMsgType(WeComAlias.TEXT);
     }
-
-    private Text text = new Text();
 
     public Text getText() {
         return text;
@@ -31,7 +31,13 @@ public class WeComTextMessage extends WeComMessage {
     }
 
     public static class Text {
+        @JsonProperty(WeComAlias.MENTIONED_LIST)
+        List<String> mentionedList = new ArrayList<>();
+
         private String content;
+
+        @JsonProperty(WeComAlias.MENTIONED_MOBILE_LIST)
+        private List<String> mentionedMobileList;
 
         public String getContent() {
             return content;
@@ -48,14 +54,9 @@ public class WeComTextMessage extends WeComMessage {
             return this;
         }
 
-        @JsonProperty(WeComAlias.MENTIONED_LIST)
-        List<String> mentionedList = new ArrayList<>();
-
         public List<String> getMentionedList() {
             return mentionedList;
         }
-        @JsonProperty(WeComAlias.MENTIONED_MOBILE_LIST)
-        private List<String> mentionedMobileList;
 
         /**
          * <h2>提醒成员userid列表</h2>
